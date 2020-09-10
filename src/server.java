@@ -17,7 +17,11 @@ class MyThread extends Thread {
         System.out.println(threadName + " run");
         MyMQTT myMQTT = new MyMQTT("tcp://higeekstudio.cn:11883", "test0");
         myMQTT.setPassWord("t", "t");
-        myMQTT.connect();
+        if (myMQTT.connect()) {
+            System.out.println("connect success");
+        } else {
+            System.out.println("connect error");
+        }
         while (true) {
             myMQTT.publishMessage("test/", "test message");
             try {

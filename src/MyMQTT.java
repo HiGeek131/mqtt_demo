@@ -71,14 +71,16 @@ public class MyMQTT {
         mqttConnectOptions.setPassword(passWord.toCharArray());
     }
 
-    public void connect() {
+    public boolean connect() {
         if (mqttClient != null) {
             try {
                 mqttClient.connect(mqttConnectOptions);
             } catch (MqttException e) {
                 e.printStackTrace();
             }
+            return this.isConnect();
         }
+        return false;
     }
 
     public void publishMessage(String topic, String msg) {
@@ -149,6 +151,10 @@ public class MyMQTT {
         } else {
             System.out.println("mqttClient is null");
         }
+    }
+
+    public boolean isConnect() {
+        return mqttClient.isConnected();
     }
 
     public void reConnect() {
